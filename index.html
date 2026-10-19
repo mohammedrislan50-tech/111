@@ -1,620 +1,1135 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cricket Score Pro</title>
 
 <style>
 :root {
-  --neon: #b6ff00;
-  --cyan: #00e5ff;
-  --navy: #071426;
-  --panel: #101d30;
+  --navy:#071426;
+  --panel:#102139;
+  --green:#b6ff00;
+  --cyan:#00e5ff;
+  --white:#ffffff;
+  --muted:#aabbd0;
 }
-
-* {
-  box-sizing: border-box;
-}
-
+* { box-sizing:border-box; }
 body {
-  margin: 0;
-  padding: 15px;
-  background: var(--navy);
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:var(--navy);
+  color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-h1, h2, h3 {
-  margin-top: 0;
-}
-
-.header {
-  max-width: 1100px;
-  margin: 0 auto 20px;
-  text-align: center;
-}
-
-.header h1 {
-  color: var(--neon);
-  font-size: clamp(22px, 4vw, 38px);
-}
-
-.header p {
-  color: #b8c8d9;
-}
-
-.overlay {
-  position: relative;
-  width: 100%;
-  max-width: 1920px;
-  margin: 0 auto 25px;
-  overflow: hidden;
-  background: #0b1b30;
-  line-height: 1.2;
-}
-
-.design {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Overlay text base */
-.text {
-  position: absolute;
-  z-index: 2;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 800;
-  text-align: center;
-  text-shadow: 0 2px 5px #000;
-  overflow-wrap: anywhere;
-}
-
-/* Tournament */
-.tournament {
-  top: 8%;
-  left: 10%;
-  width: 80%;
-  font-size: clamp(14px, 3.2vw, 58px);
-  color: var(--neon);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* Team A */
-.team-a {
-  top: 29%;
-  left: 4%;
-  width: 36%;
-  font-size: clamp(11px, 2.3vw, 40px);
-  line-height: 1.25;
-}
-
-/* Team B */
-.team-b {
-  top: 29%;
-  right: 4%;
-  width: 36%;
-  font-size: clamp(11px, 2.3vw, 40px);
-  line-height: 1.25;
-}
-
-/* Team logos */
-.team-a img,
-.team-b img {
-  display: block;
-  width: clamp(30px, 8vw, 130px);
-  height: clamp(30px, 8vw, 130px);
-  object-fit: contain;
-  margin: 0 auto 8px;
-}
-
-/* VS */
-.vs {
-  top: 39%;
-  left: 43%;
-  width: 14%;
-  font-size: clamp(18px, 4vw, 64px);
-  color: var(--neon);
-  font-style: italic;
-}
-
-/* Toss */
-.toss {
-  bottom: 9%;
-  left: 5%;
-  width: 90%;
-  font-size: clamp(11px, 2.2vw, 38px);
-  color: #fff;
-  line-height: 1.4;
-}
-
-/* Control panel */
-.controls {
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto 25px;
-  padding: 20px;
-  border: 1px solid #263b52;
-  border-radius: 14px;
-  background: var(--panel);
-}
-
-.controls h2 {
-  color: var(--cyan);
-  margin-bottom: 20px;
-}
-
-.section {
-  padding: 15px 0;
-  border-bottom: 1px solid #304158;
-}
-
-.section:last-child {
-  border-bottom: none;
-}
-
-label {
-  display: block;
-  margin: 12px 0 6px;
-  color: #d9e5f2;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-input,
-select {
-  display: block;
-  width: 100%;
-  min-height: 44px;
-  padding: 10px;
-  border: 1px solid #42536b;
-  border-radius: 7px;
-  background: #fff;
-  color: #111827;
-  font-size: 16px;
-}
-
-input[type="color"] {
-  padding: 4px;
-}
-
+button,input,select { font:inherit; }
 button {
-  min-height: 44px;
-  padding: 10px 15px;
-  margin: 7px 5px 0 0;
-  border: none;
-  border-radius: 7px;
-  background: var(--neon);
-  color: #071426;
-  font-weight: 800;
-  cursor: pointer;
+  border:0;
+  padding:11px 14px;
+  border-radius:6px;
+  background:var(--green);
+  color:var(--navy);
+  font-weight:800;
+  cursor:pointer;
 }
-
-button.secondary {
-  background: var(--cyan);
+button.secondary { background:var(--cyan); }
+button.off { background:#45546a;color:white; }
+input,select {
+  width:100%;
+  min-height:40px;
+  margin:5px 0 12px;
+  padding:9px;
+  border:1px solid #40536c;
+  border-radius:6px;
+  background:#fff;
+  color:#111827;
 }
-
-button.danger {
-  background: #ff5c6c;
-  color: white;
+label {
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  color:#dce7f4;
 }
-
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+header {
+  padding:20px 12px;
+  text-align:center;
+  background:#0b1c32;
+  border-bottom:2px solid var(--green);
 }
-
+header h1 { margin:0;color:var(--green); }
+header p { color:var(--muted);margin-bottom:0; }
+nav {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+  padding:12px;
+  background:#0c1b2e;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+nav button { font-size:12px;padding:10px; }
+main { max-width:1500px;margin:auto;padding:14px; }
+.page { display:none; }
+.page.active { display:block; }
+.panel {
+  padding:16px;
+  margin-bottom:15px;
+  background:var(--panel);
+  border:1px solid #2b405a;
+  border-radius:10px;
+}
+.panel h2,.panel h3 { color:var(--cyan);margin-top:0; }
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
-
-.help {
-  color: #aabbd0;
-  font-size: 13px;
-  line-height: 1.5;
+.small-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
 }
-
-.status {
-  color: var(--neon);
-  min-height: 20px;
-  margin-top: 10px;
-  font-size: 14px;
+.row { display:flex;flex-wrap:wrap;gap:8px;align-items:center; }
+.muted { color:var(--muted);font-size:13px; }
+hr { border:0;border-top:1px solid #354961;margin:18px 0; }
+table { width:100%;border-collapse:collapse;font-size:13px; }
+th,td { padding:9px 6px;text-align:left;border-bottom:1px solid #354961; }
+th { color:var(--green); }
+.table-wrap { overflow-x:auto; }
+.notice { color:var(--green);min-height:20px;font-size:13px; }
+.player-card {
+  display:flex;align-items:center;gap:10px;
+  padding:10px;background:#0b192b;border-radius:8px;
 }
-
-@media (max-width: 600px) {
-  body {
-    padding: 8px;
-  }
-
-  .controls {
-    padding: 14px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tournament {
-    top: 7%;
-    font-size: clamp(10px, 3.2vw, 20px);
-  }
-
-  .team-a,
-  .team-b {
-    top: 30%;
-    font-size: clamp(9px, 2.7vw, 16px);
-  }
-
-  .team-a img,
-  .team-b img {
-    width: clamp(22px, 8vw, 50px);
-    height: clamp(22px, 8vw, 50px);
-    margin-bottom: 4px;
-  }
-
-  .vs {
-    top: 40%;
-    font-size: clamp(14px, 4vw, 24px);
-  }
-
-  .toss {
-    bottom: 8%;
-    font-size: clamp(9px, 2.8vw, 16px);
-  }
+.player-card img {
+  width:48px;height:48px;object-fit:cover;
+  border-radius:50%;background:#304258;
+}
+.badge {
+  display:inline-block;padding:4px 7px;
+  background:#1c354d;border-radius:5px;color:var(--cyan);
+  font-size:12px;
+}
+input[type=color] { padding:3px; }
+input[type=checkbox] { width:auto;min-height:auto; }
+.overlay-stage {
+  position:relative;
+  width:100%;
+  min-height:300px;
+  background:
+    radial-gradient(ellipse at top,#16375a,#071426 70%);
+  border:1px solid #29405b;
+  overflow:hidden;
+  margin-bottom:16px;
+}
+.broadcast-overlay {
+  position:absolute;
+  left:0;top:0;
+  width:100%;
+  min-height:80px;
+  padding:14px;
+  overflow:hidden;
+  background:linear-gradient(110deg,#071426 0%,#123451 65%,#071426 100%);
+  border-left:5px solid var(--green);
+  border-bottom:2px solid var(--cyan);
+  box-shadow:0 6px 22px #0008;
+}
+.broadcast-overlay h2 {
+  color:var(--green);
+  margin:0 0 8px;
+  font-size:clamp(15px,2vw,30px);
+}
+.broadcast-overlay h3 { margin:5px 0;color:var(--cyan); }
+.broadcast-overlay p { margin:5px 0; }
+.broadcast-overlay .score-big {
+  font-size:clamp(25px,4vw,50px);
+  color:var(--green);
+  font-weight:900;
+}
+.overlay-inner { display:flex;align-items:center;gap:18px;flex-wrap:wrap; }
+.overlay-team { display:flex;align-items:center;gap:8px; }
+.overlay-team img {
+  width:48px;height:48px;object-fit:contain;
+}
+.overlay-team strong { font-size:clamp(12px,1.5vw,22px); }
+.lower-third {
+  width:100%;
+  height:200px;
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.lower-third .score-big { font-size:clamp(24px,3vw,42px); }
+.overlay-photo {
+  width:64px;height:64px;object-fit:cover;border-radius:50%;
+}
+.hide { display:none!important; }
+@media(max-width:650px) {
+  main { padding:8px; }
+  .grid,.small-grid { grid-template-columns:1fr; }
+  nav { position:static; }
+  .overlay-stage { min-height:240px; }
+  table { font-size:11px; }
 }
 </style>
 </head>
 
 <body>
-
-<header class="header">
+<header>
   <h1>CRICKET SCORE PRO</h1>
-  <p>Tournament Welcome Overlay Editor</p>
+  <p>Professional TV Broadcast • Live Score • OBS Overlays</p>
 </header>
 
-<!-- BROADCAST OVERLAY -->
-<div class="overlay" id="broadcastOverlay">
+<nav>
+  <button onclick="showPage('livePage')">LIVE SCORE</button>
+  <button onclick="showPage('welcomePage')">WELCOME</button>
+  <button onclick="showPage('teamsPage')">TEAMS & PLAYERS</button>
+  <button onclick="showPage('statsPage')">MATCH STATS</button>
+  <button onclick="showPage('overlaysPage')">OVERLAY EDITOR</button>
+</nav>
 
-  <img class="design"
-       src="welcome.png"
-       alt="Welcome screen background"
-       onerror="this.style.display='none'; document.getElementById('imageWarning').hidden=false;">
+<main>
 
-  <div id="imageWarning" hidden
-       style="padding:25px;text-align:center;color:#b6ff00">
-    Upload welcome.png to the same folder as index.html
-  </div>
-
-  <div class="text tournament" id="tournamentText">
-    TOURNAMENT NAME
-  </div>
-
-  <div class="text team-a" id="teamABox">
-    <img id="teamALogo" alt="Team A Logo" hidden>
-    <div id="teamAText">TEAM A FULL NAME</div>
-  </div>
-
-  <div class="text vs" id="vsText">VS</div>
-
-  <div class="text team-b" id="teamBBox">
-    <img id="teamBLogo" alt="Team B Logo" hidden>
-    <div id="teamBText">TEAM B FULL NAME</div>
-  </div>
-
-  <div class="text toss" id="tossText">
-    TOSS DETAILS
-  </div>
-
-</div>
-
-<!-- EDITOR -->
-<div class="controls">
-
-  <h2>Welcome Screen Editor</h2>
-
-  <div class="section">
-    <h3>1. Tournament Information</h3>
-
-    <label for="tournamentInput">Tournament Name</label>
-    <input id="tournamentInput"
-           placeholder="Enter tournament name">
-
-    <label for="subtitleInput">Welcome Subtitle (optional)</label>
-    <input id="subtitleInput"
-           placeholder="Tournament Final / Semi Final">
-
-    <label for="tournamentColor">Tournament Text Colour</label>
-    <input id="tournamentColor" type="color" value="#b6ff00">
-  </div>
-
-  <div class="section">
-    <h3>2. Team A Information</h3>
-
-    <label for="teamAInput">Team A Full Name</label>
-    <input id="teamAInput" placeholder="Enter full team name">
-
-    <label for="teamAFile">Team A Logo</label>
-    <input id="teamAFile" type="file" accept="image/*">
-
-    <label for="teamAColor">Team A Text Colour</label>
-    <input id="teamAColor" type="color" value="#ffffff">
-  </div>
-
-  <div class="section">
-    <h3>3. Team B Information</h3>
-
-    <label for="teamBInput">Team B Full Name</label>
-    <input id="teamBInput" placeholder="Enter full team name">
-
-    <label for="teamBFile">Team B Logo</label>
-    <input id="teamBFile" type="file" accept="image/*">
-
-    <label for="teamBColor">Team B Text Colour</label>
-    <input id="teamBColor" type="color" value="#ffffff">
-  </div>
-
-  <div class="section">
-    <h3>4. Toss Details</h3>
-
-    <label for="tossWinner">Toss Winner</label>
-    <select id="tossWinner">
-      <option value="">Select toss winner</option>
-      <option value="A">Team A</option>
-      <option value="B">Team B</option>
-    </select>
-
-    <label for="tossDecision">Toss Decision</label>
-    <select id="tossDecision">
-      <option value="">Select decision</option>
-      <option value="bat">Elected to bat first</option>
-      <option value="field">Elected to field first</option>
-    </select>
-  </div>
-
-  <div class="section">
-    <h3>5. Text Size</h3>
-
-    <label for="tournamentSize">Tournament Name Size</label>
-    <input id="tournamentSize" type="range"
-           min="10" max="80" value="40">
-
-    <label for="teamSize">Team Name Size</label>
-    <input id="teamSize" type="range"
-           min="10" max="60" value="28">
-
-    <label for="vsSize">VS Text Size</label>
-    <input id="vsSize" type="range"
-           min="10" max="80" value="42">
-
-    <label for="tossSize">Toss Text Size</label>
-    <input id="tossSize" type="range"
-           min="10" max="50" value="24">
-  </div>
-
-  <div class="section">
-    <h3>6. Text Position</h3>
-    <p class="help">
-      Position values are percentages of the overlay.
-      Adjust them to match your welcome.png design.
-    </p>
-
+<!-- LIVE SCORE -->
+<section class="page active" id="livePage">
+  <div class="panel">
+    <h2>Live Match Scoring</h2>
     <div class="grid">
       <div>
-        <label for="tournamentTop">Tournament Top (%)</label>
-        <input id="tournamentTop" type="number"
-               min="0" max="100" value="8">
-
-        <label for="teamTop">Teams Top (%)</label>
-        <input id="teamTop" type="number"
-               min="0" max="100" value="29">
-
-        <label for="vsTop">VS Top (%)</label>
-        <input id="vsTop" type="number"
-               min="0" max="100" value="39">
-
-        <label for="tossBottom">Toss Bottom (%)</label>
-        <input id="tossBottom" type="number"
-               min="0" max="100" value="9">
+        <label>Tournament Name</label>
+        <input id="tournamentInput" value="SRI LANKA SOFTBALL TOURNAMENT">
+        <label>Team 1 Name</label>
+        <input id="team1Input" value="TEAM A">
+        <label>Team 2 Name</label>
+        <input id="team2Input" value="TEAM B">
+        <label>Innings</label>
+        <select id="inningsInput">
+          <option value="1">Team 1 Batting</option>
+          <option value="2">Team 2 Batting</option>
+        </select>
+        <label>Overs Per Innings</label>
+        <input id="maxOvers" type="number" min="1" value="10">
+        <label>Target (for second innings)</label>
+        <input id="targetInput" type="number" min="0" value="0">
       </div>
-
       <div>
-        <label for="teamALeft">Team A Left (%)</label>
-        <input id="teamALeft" type="number"
-               min="0" max="100" value="4">
+        <label>Team 1 Logo</label>
+        <input type="file" id="logo1Input" accept="image/*">
+        <label>Team 2 Logo</label>
+        <input type="file" id="logo2Input" accept="image/*">
+        <label>Striker Name</label>
+        <input id="strikerInput" value="Batsman 1">
+        <label>Non-Striker Name</label>
+        <input id="nonStrikerInput" value="Batsman 2">
+        <label>Current Bowler</label>
+        <input id="bowlerInput" value="Bowler 1">
+        <label>Match Status</label>
+        <input id="matchStatusInput" value="LIVE MATCH">
+      </div>
+    </div>
+    <button onclick="updateAll()">UPDATE MATCH DETAILS</button>
+  </div>
 
-        <label for="teamBRight">Team B Right (%)</label>
-        <input id="teamBRight" type="number"
-               min="0" max="100" value="4">
+  <div class="panel">
+    <h2 id="liveHeading">TEAM A — 0/0</h2>
+    <div class="small-grid">
+      <div><span class="muted">OVERS</span><h2 id="liveOvers">0.0</h2></div>
+      <div><span class="muted">RUN RATE</span><h2 id="liveRR">0.00</h2></div>
+      <div><span class="muted">EXTRAS</span><h2 id="liveExtras">0</h2></div>
+    </div>
+    <div class="row">
+      <button onclick="addBall(0)">DOT BALL</button>
+      <button onclick="addBall(1)">+1</button>
+      <button onclick="addBall(2)">+2</button>
+      <button onclick="addBall(3)">+3</button>
+      <button onclick="addBall(4)">FOUR</button>
+      <button onclick="addBall(6)">SIX</button>
+      <button class="secondary" onclick="addExtra('wide')">WIDE +1</button>
+      <button class="secondary" onclick="addExtra('noBall')">NO BALL +1</button>
+      <button class="secondary" onclick="addExtra('bye')">BYE +1</button>
+      <button class="secondary" onclick="addExtra('legBye')">LEG BYE +1</button>
+      <button class="danger" onclick="addWicket()">WICKET</button>
+      <button class="secondary" onclick="undoBall()">UNDO</button>
+    </div>
+    <p class="muted">Wide and no-ball deliveries do not count as legal balls. This simple scorer records a wicket but does not automatically change strike or dismiss a specific player.</p>
+    <div class="notice" id="scoreNotice"></div>
+  </div>
 
-        <label for="vsLeft">VS Left (%)</label>
-        <input id="vsLeft" type="number"
-               min="0" max="100" value="43">
-
-        <label for="tossLeft">Toss Left (%)</label>
-        <input id="tossLeft" type="number"
-               min="0" max="100" value="5">
+  <div class="panel">
+    <h2>Current Batters</h2>
+    <div class="grid">
+      <div>
+        <h3 id="strikerName">Batsman 1 *</h3>
+        <p>Runs: <strong id="strikerRuns">0</strong></p>
+        <p>Balls: <strong id="strikerBalls">0</strong></p>
+        <p>4s: <strong id="strikerFours">0</strong> | 6s: <strong id="strikerSixes">0</strong></p>
+        <p>Strike Rate: <strong id="strikerSR">0.00</strong></p>
+      </div>
+      <div>
+        <h3 id="nonStrikerName">Batsman 2</h3>
+        <p>Runs: <strong id="nonRuns">0</strong></p>
+        <p>Balls: <strong id="nonBalls">0</strong></p>
+        <p>4s: <strong id="nonFours">0</strong> | 6s: <strong id="nonSixes">0</strong></p>
+        <p>Strike Rate: <strong id="nonSR">0.00</strong></p>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h3>7. Update Overlay</h3>
-
-    <div class="button-row">
-      <button type="button" onclick="updateOverlay()">
-        UPDATE OVERLAY
-      </button>
-
-      <button type="button" class="secondary"
-              onclick="resetPositions()">
-        RESET POSITIONS
-      </button>
-
-      <button type="button" class="secondary"
-              onclick="window.print()">
-        PRINT / SAVE PDF
-      </button>
+  <div class="panel">
+    <h2>Current Bowler</h2>
+    <div class="grid">
+      <div>
+        <h3 id="currentBowlerName">Bowler 1</h3>
+        <p>Overs: <strong id="bowlerOvers">0.0</strong></p>
+        <p>Runs Conceded: <strong id="bowlerRuns">0</strong></p>
+        <p>Wickets: <strong id="bowlerWickets">0</strong></p>
+        <p>Economy: <strong id="bowlerEconomy">0.00</strong></p>
+      </div>
+      <div>
+        <h3>Partnership</h3>
+        <p>Runs: <strong id="partnershipRuns">0</strong></p>
+        <p>Balls: <strong id="partnershipBalls">0</strong></p>
+        <hr>
+        <h3>To Win Need</h3>
+        <p id="toWin">Enter target for second innings.</p>
+      </div>
     </div>
-
-    <div id="status" class="status" role="status"></div>
   </div>
 
-</div>
+  <div class="panel">
+    <h2>Wickets Details</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Wicket</th><th>Score</th><th>Over</th><th>Runs Added</th></tr></thead>
+        <tbody id="wicketsTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Match Summary</h2>
+    <p id="matchSummary">Match has not started.</p>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section class="page" id="welcomePage">
+  <div class="panel">
+    <h2>Welcome to Match</h2>
+    <label>Welcome Heading</label>
+    <input id="welcomeHeading" value="WELCOME TO THE MATCH">
+    <label>Venue</label>
+    <input id="venueInput" placeholder="Ground / venue">
+    <label>Match Type</label>
+    <select id="matchType">
+      <option>Final</option><option>Semi Final</option>
+      <option>League Match</option><option>Friendly Match</option>
+    </select>
+    <label>Toss Winner</label>
+    <select id="tossWinner">
+      <option value="">Select toss winner</option>
+      <option value="1">Team 1</option>
+      <option value="2">Team 2</option>
+    </select>
+    <label>Toss Decision</label>
+    <select id="tossDecision">
+      <option value="">Select decision</option>
+      <option value="bat first">Bat first</option>
+      <option value="field first">Field first</option>
+    </select>
+    <button onclick="updateAll()">UPDATE WELCOME SCREEN</button>
+  </div>
+
+  <div class="panel">
+    <h2>Match Officials</h2>
+    <label>Umpire 1</label><input id="umpire1" placeholder="Umpire name">
+    <label>Umpire 2</label><input id="umpire2" placeholder="Umpire name">
+    <label>Match Referee</label><input id="referee" placeholder="Referee name">
+    <button onclick="updateAll()">UPDATE OFFICIALS</button>
+  </div>
+
+  <div class="panel">
+    <h2>Commentators</h2>
+    <label>Commentator 1</label><input id="commentator1" placeholder="Commentator name">
+    <label>Commentator 2</label><input id="commentator2" placeholder="Commentator name">
+    <button onclick="updateAll()">UPDATE COMMENTATORS</button>
+  </div>
+</section>
+
+<!-- TEAMS AND PLAYERS -->
+<section class="page" id="teamsPage">
+  <div class="panel">
+    <h2>Team 1 Players</h2>
+    <label>Player Name</label><input id="p1Name" placeholder="Full player name">
+    <label>Player Photo</label><input id="p1Photo" type="file" accept="image/*">
+    <label>Role</label>
+    <select id="p1Role"><option>Batter</option><option>Bowler</option><option>All-rounder</option><option>Wicketkeeper</option></select>
+    <button onclick="addPlayer(1)">ADD TEAM 1 PLAYER</button>
+    <div id="team1Players" class="grid"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Team 2 Players</h2>
+    <label>Player Name</label><input id="p2Name" placeholder="Full player name">
+    <label>Player Photo</label><input id="p2Photo" type="file" accept="image/*">
+    <label>Role</label>
+    <select id="p2Role"><option>Batter</option><option>Bowler</option><option>All-rounder</option><option>Wicketkeeper</option></select>
+    <button onclick="addPlayer(2)">ADD TEAM 2 PLAYER</button>
+    <div id="team2Players" class="grid"></div>
+  </div>
+  <div class="panel">
+    <h2>Sticker / Sponsor</h2>
+    <label>Sponsor Name</label><input id="sponsorName" placeholder="Sponsor name">
+    <label>Sponsor Logo</label><input id="sponsorLogo" type="file" accept="image/*">
+    <button onclick="showSponsor()">SHOW SPONSOR OVERLAY</button>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="page" id="statsPage">
+  <div class="panel">
+    <h2>Team 1 Batting Scores</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Batsman</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr></thead>
+      <tbody id="team1BattingTable"></tbody>
+    </table></div>
+  </div>
+  <div class="panel">
+    <h2>Team 2 Batting Scores</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Batsman</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th></tr></thead>
+      <tbody id="team2BattingTable"></tbody>
+    </table></div>
+  </div>
+  <div class="panel">
+    <h2>Team 1 Bowling</h2>
+    <p class="muted">Enter bowling figures for each bowler.</p>
+    <label>Bowler Name</label><input id="bowl1Name" placeholder="Bowler name">
+    <div class="grid">
+      <div><label>Overs</label><input id="bowl1Overs" type="number" min="0" value="0"></div>
+      <div><label>Runs</label><input id="bowl1Runs" type="number" min="0" value="0"></div>
+      <div><label>Wickets</label><input id="bowl1Wickets" type="number" min="0" value="0"></div>
+    </div>
+    <button onclick="addManualBowler(1)">ADD FIGURES</button>
+    <div class="table-wrap"><table><thead><tr><th>Bowler</th><th>O</th><th>R</th><th>W</th><th>Econ</th></tr></thead><tbody id="team1BowlingTable"></tbody></table></div>
+  </div>
+  <div class="panel">
+    <h2>Team 2 Bowling</h2>
+    <label>Bowler Name</label><input id="bowl2Name" placeholder="Bowler name">
+    <div class="grid">
+      <div><label>Overs</label><input id="bowl2Overs" type="number" min="0" value="0"></div>
+      <div><label>Runs</label><input id="bowl2Runs" type="number" min="0" value="0"></div>
+      <div><label>Wickets</label><input id="bowl2Wickets" type="number" min="0" value="0"></div>
+    </div>
+    <button onclick="addManualBowler(2)">ADD FIGURES</button>
+    <div class="table-wrap"><table><thead><tr><th>Bowler</th><th>O</th><th>R</th><th>W</th><th>Econ</th></tr></thead><tbody id="team2BowlingTable"></tbody></table></div>
+  </div>
+</section>
+
+<!-- OVERLAY EDITOR -->
+<section class="page" id="overlaysPage">
+  <div class="panel">
+    <h2>Overlay Control Centre</h2>
+    <p class="muted">Select a graphic and use Show / Hide. Position and size values are percentages of the preview stage. Lower-third uses 1920 × 200 design dimensions.</p>
+    <label>Select Overlay</label>
+    <select id="overlaySelect"></select>
+    <div class="row">
+      <button onclick="showSelectedOverlay()">SHOW OVERLAY</button>
+      <button class="secondary" onclick="hideSelectedOverlay()">HIDE OVERLAY</button>
+      <button class="secondary" onclick="showAllOverlays()">SHOW ALL</button>
+      <button class="off" onclick="hideAllOverlays()">HIDE ALL</button>
+    </div>
+    <hr>
+    <div class="grid">
+      <div>
+        <label>X Position (%)</label><input id="overlayX" type="number" value="0">
+        <label>Y Position (%)</label><input id="overlayY" type="number" value="0">
+        <label>Width (%)</label><input id="overlayW" type="number" value="100">
+        <label>Height (px)</label><input id="overlayH" type="number" value="200">
+      </div>
+      <div>
+        <label>Font Size (px)</label><input id="overlayFont" type="number" value="24">
+        <label>Text Colour</label><input id="overlayColor" type="color" value="#ffffff">
+        <label>Background Colour</label><input id="overlayBG" type="color" value="#071426">
+        <label>Border Colour</label><input id="overlayBorder" type="color" value="#b6ff00">
+      </div>
+    </div>
+    <button onclick="applyOverlaySettings()">APPLY STYLE & POSITION</button>
+  </div>
+
+  <div class="panel">
+    <h2>Broadcast Preview</h2>
+    <div class="overlay-stage" id="overlayStage">
+      <div class="broadcast-overlay lower-third" data-overlay="main" id="ov-main">
+        <div class="overlay-inner">
+          <div>
+            <h3 id="ovTournament">SRI LANKA SOFTBALL</h3>
+            <div class="overlay-team">
+              <img id="ovLogo1" alt="" hidden>
+              <strong id="ovTeam1">TEAM A</strong>
+            </div>
+          </div>
+          <div class="score-big" id="ovScore">0/0</div>
+          <div>
+            <div class="overlay-team">
+              <img id="ovLogo2" alt="" hidden>
+              <strong id="ovTeam2">TEAM B</strong>
+            </div>
+            <p id="ovOvers">Overs 0.0</p>
+          </div>
+          <div>
+            <p id="ovBatters">Batsmen: 0* & 0</p>
+            <p id="ovBowler">Bowler: Bowler 1</p>
+            <p id="ovRR">RR 0.00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="welcome" id="ov-welcome">
+        <h2 id="ovWelcomeHeading">WELCOME TO THE MATCH</h2>
+        <div class="overlay-inner">
+          <div class="overlay-team"><img id="ovWelcomeLogo1" alt="" hidden><strong id="ovWelcomeTeam1">TEAM A</strong></div>
+          <strong style="color:var(--green);font-size:30px">VS</strong>
+          <div class="overlay-team"><img id="ovWelcomeLogo2" alt="" hidden><strong id="ovWelcomeTeam2">TEAM B</strong></div>
+        </div>
+        <p id="ovMatchInfo">Match details</p>
+        <p id="ovToss">Toss details</p>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="players" id="ov-players">
+        <h2>TEAM PLAYERS LIST</h2>
+        <p id="ovPlayersInfo">Team 1 and Team 2 squads</p>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="team1bat" id="ov-team1bat">
+        <h2>TEAM 1 BATTING SCORES</h2><div id="ovTeam1BatContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="team2bat" id="ov-team2bat">
+        <h2>TEAM 2 BATTING SCORES</h2><div id="ovTeam2BatContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="team1bowl" id="ov-team1bowl">
+        <h2>TEAM 1 BOWLING</h2><div id="ovTeam1BowlContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="team2bowl" id="ov-team2bowl">
+        <h2>TEAM 2 BOWLING</h2><div id="ovTeam2BowlContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="wickets" id="ov-wickets">
+        <h2>WICKETS DETAILS</h2><div id="ovWicketsContent">No wickets yet</div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="batsman1" id="ov-batsman1">
+        <h2>BATSMAN 1 STATISTICS</h2><div id="ovBatsman1Content"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="batsman2" id="ov-batsman2">
+        <h2>BATSMAN 2 STATISTICS</h2><div id="ovBatsman2Content"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="partnership" id="ov-partnership">
+        <h2>PARTNERSHIP</h2><div id="ovPartnershipContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="bowlerstats" id="ov-bowlerstats">
+        <h2>STRIKE BOWLER STATISTICS</h2><div id="ovBowlerStatsContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="towin" id="ov-towin">
+        <h2>TO WIN NEED</h2><div id="ovToWinContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="summary" id="ov-summary">
+        <h2>MATCH SUMMARY</h2><div id="ovSummaryContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="officials" id="ov-officials">
+        <h2>MATCH OFFICIALS</h2><div id="ovOfficialsContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="commentators" id="ov-commentators">
+        <h2>COMMENTATORS</h2><div id="ovCommentatorsContent"></div>
+      </div>
+
+      <div class="broadcast-overlay hide" data-overlay="sponsor" id="ov-sponsor">
+        <h2 id="ovSponsorName">SPONSOR</h2><img id="ovSponsorLogo" alt="" style="max-height:80px;max-width:200px" hidden>
+      </div>
+    </div>
+
+    <p class="muted">This preview is inside the app. For a separate OBS Browser Source URL, you will need an additional overlay page or a hosted overlay route.</p>
+  </div>
+</section>
+
+</main>
 
 <script>
 const $ = id => document.getElementById(id);
 
-let teamAName = "TEAM A FULL NAME";
-let teamBName = "TEAM B FULL NAME";
+const state = {
+  runs:0, wickets:0, balls:0, extras:0,
+  bowlerRuns:0, bowlerWickets:0,
+  partnershipRuns:0, partnershipBalls:0,
+  striker:{runs:0,balls:0,fours:0,sixes:0},
+  nonStriker:{runs:0,balls:0,fours:0,sixes:0},
+  wicketsList:[],
+  history:[],
+  batters:{1:[],2:[]},
+  bowlers:{1:[],2:[]},
+  players:{1:[],2:[]},
+  logos:{1:"",2:""},
+  overlayVisible:{main:true}
+};
 
-function loadLogo(inputId, imageId) {
-  const file = $(inputId).files[0];
-  if (!file) return;
+const overlayNames = {
+  main:"Main Scoreboard — Lower-third 1920 × 200",
+  welcome:"Welcome to Match",
+  players:"Team Players List",
+  team1bat:"Team 1 Batting Scores",
+  team2bat:"Team 2 Batting Scores",
+  team1bowl:"Team 1 Bowling",
+  team2bowl:"Team 2 Bowling",
+  wickets:"Wickets Details",
+  batsman1:"Batsman 1 Statistics",
+  batsman2:"Batsman 2 Statistics",
+  partnership:"Partnership",
+  bowlerstats:"Strike Bowler Statistics",
+  towin:"To Win Need",
+  summary:"Match Summary",
+  officials:"Match Officials",
+  commentators:"Commentators",
+  sponsor:"Sticker / Sponsor"
+};
 
-  if (!file.type.startsWith("image/")) {
-    $("status").textContent = "Please select an image file.";
-    return;
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  $(id).classList.add("active");
+}
+
+function teamName(n) {
+  return $(`team${n}Input`).value.trim() || `TEAM ${n}`;
+}
+
+function currentTeam() {
+  return Number($("inningsInput").value);
+}
+
+function oversText(balls) {
+  return `${Math.floor(balls/6)}.${balls%6}`;
+}
+
+function rate(runs, balls) {
+  return balls ? (runs*6/balls).toFixed(2) : "0.00";
+}
+
+function saveHistory() {
+  state.history.push(JSON.stringify(state));
+}
+
+function addBall(runs) {
+  if (state.wickets >= 10) return;
+  saveHistory();
+
+  state.runs += runs;
+  state.bowlerRuns += runs;
+  state.balls++;
+  state.partnershipRuns += runs;
+  state.partnershipBalls++;
+
+  state.striker.runs += runs;
+  state.striker.balls++;
+
+  if (runs === 4) state.striker.fours++;
+  if (runs === 6) state.striker.sixes++;
+
+  if (runs % 2 === 1) swapStrike();
+
+  if (state.balls % 6 === 0) swapStrike();
+
+  updateAll();
+}
+
+function addExtra(type) {
+  if (state.wickets >= 10) return;
+  saveHistory();
+
+  if (type === "wide" || type === "noBall") {
+    state.runs++;
+    state.extras++;
+    state.bowlerRuns++;
+    if (type === "noBall") state.striker.runs++;
+  } else {
+    state.runs++;
+    state.extras++;
+    state.balls++;
+    state.partnershipRuns++;
+    state.partnershipBalls++;
   }
 
+  updateAll();
+}
+
+function addWicket() {
+  if (state.wickets >= 10) return;
+  saveHistory();
+
+  state.wickets++;
+  state.balls++;
+  state.bowlerWickets++;
+  state.partnershipBalls++;
+
+  state.wicketsList.push({
+    wicket:state.wickets,
+    score:`${state.runs}/${state.wickets}`,
+    over:oversText(state.balls),
+    runs:state.runs
+  });
+
+  state.partnershipRuns = 0;
+  state.partnershipBalls = 0;
+  state.striker = {runs:0,balls:0,fours:0,sixes:0};
+
+  updateAll();
+}
+
+function swapStrike() {
+  const old = state.striker;
+  state.striker = state.nonStriker;
+  state.nonStriker = old;
+}
+
+function undoBall() {
+  if (!state.history.length) return;
+  const old = JSON.parse(state.history.pop());
+  state.runs = old.runs;
+  state.wickets = old.wickets;
+  state.balls = old.balls;
+  state.extras = old.extras;
+  state.bowlerRuns = old.bowlerRuns;
+  state.bowlerWickets = old.bowlerWickets;
+  state.partnershipRuns = old.partnershipRuns;
+  state.partnershipBalls = old.partnershipBalls;
+  state.striker = old.striker;
+  state.nonStriker = old.nonStriker;
+  state.wicketsList = old.wicketsList;
+  updateAll();
+}
+
+function updateImage(inputId, callback) {
+  const file = $(inputId).files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) return;
+
   const reader = new FileReader();
-
-  reader.onload = event => {
-    $(imageId).src = event.target.result;
-    $(imageId).hidden = false;
-  };
-
+  reader.onload = e => callback(e.target.result);
   reader.readAsDataURL(file);
 }
 
-function setPosition(id, property, valueId) {
-  const value = Number($(valueId).value);
+$("logo1Input").addEventListener("change",()=>updateImage("logo1Input",src=>{
+  state.logos[1]=src;updateAll();
+}));
+$("logo2Input").addEventListener("change",()=>updateImage("logo2Input",src=>{
+  state.logos[2]=src;updateAll();
+}));
 
-  if (!Number.isFinite(value)) return;
+function addPlayer(team) {
+  const name = $(`p${team}Name`).value.trim();
+  const file = $(`p${team}Photo`).files[0];
+  const role = $(`p${team}Role`).value;
 
-  $(id).style[property] =
-    Math.max(0, Math.min(100, value)) + "%";
+  if (!name) {
+    alert("Enter player name.");
+    return;
+  }
+
+  const add = photo => {
+    state.players[team].push({name,role,photo:photo||""});
+    $(`p${team}Name`).value = "";
+    $(`p${team}Photo`).value = "";
+    renderPlayers(team);
+    updateAll();
+  };
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => add(e.target.result);
+    reader.readAsDataURL(file);
+  } else {
+    add("");
+  }
 }
 
-function updateOverlay() {
-  teamAName = $("teamAInput").value.trim() || "TEAM A";
-  teamBName = $("teamBInput").value.trim() || "TEAM B";
+function renderPlayers(team) {
+  const container = $(`team${team}Players`);
+  container.innerHTML = "";
 
-  const tournamentName =
-    $("tournamentInput").value.trim() || "TOURNAMENT NAME";
+  state.players[team].forEach((p,i)=>{
+    const card = document.createElement("div");
+    card.className = "player-card";
 
-  const subtitle = $("subtitleInput").value.trim();
+    const img = document.createElement("img");
+    if (p.photo) img.src = p.photo;
+    img.alt = p.name;
 
-  $("tournamentText").textContent =
-    subtitle ? tournamentName + " — " + subtitle : tournamentName;
+    const info = document.createElement("div");
+    const name = document.createElement("strong");
+    name.textContent = p.name;
+    const role = document.createElement("div");
+    role.className = "muted";
+    role.textContent = p.role;
+    const remove = document.createElement("button");
+    remove.className = "off";
+    remove.textContent = "Remove";
+    remove.onclick = ()=>{
+      state.players[team].splice(i,1);
+      renderPlayers(team);
+      updateAll();
+    };
 
-  $("teamAText").textContent = teamAName;
-  $("teamBText").textContent = teamBName;
+    info.append(name,role,remove);
+    card.append(img,info);
+    container.append(card);
+  });
+}
 
-  $("tournamentText").style.color = $("tournamentColor").value;
-  $("teamAText").style.color = $("teamAColor").value;
-  $("teamBText").style.color = $("teamBColor").value;
+function addManualBowler(team) {
+  const name = $(`bowl${team}Name`).value.trim();
+  if (!name) {
+    alert("Enter bowler name.");
+    return;
+  }
 
-  $("tournamentText").style.fontSize =
-    $("tournamentSize").value + "px";
+  const overs = Math.max(0,Number($(`bowl${team}Overs`).value)||0);
+  const runs = Math.max(0,Number($(`bowl${team}Runs`).value)||0);
+  const wickets = Math.max(0,Number($(`bowl${team}Wickets`).value)||0);
+  const whole = Math.floor(overs);
+  const decimal = Math.round((overs-whole)*10);
+  const legalBalls = whole*6 + Math.min(5,decimal);
 
-  $("teamABox").style.fontSize =
-    $("teamSize").value + "px";
+  state.bowlers[team].push({
+    name,overs,runs,wickets,
+    economy:legalBalls ? (runs*6/legalBalls).toFixed(2) : "0.00"
+  });
 
-  $("teamBBox").style.fontSize =
-    $("teamSize").value + "px";
+  renderBowlers(team);
+}
 
-  $("vsText").style.fontSize =
-    $("vsSize").value + "px";
+function renderBowlers(team) {
+  const tbody = $(`team${team}BowlingTable`);
+  tbody.innerHTML = "";
 
-  $("tossText").style.fontSize =
-    $("tossSize").value + "px";
+  state.bowlers[team].forEach(b=>{
+    const tr = document.createElement("tr");
+    [b.name,b.overs,b.runs,b.wickets,b.economy].forEach(v=>{
+      const td = document.createElement("td");
+      td.textContent = v;
+      tr.append(td);
+    });
+    tbody.append(tr);
+  });
 
-  setPosition("tournamentText", "top", "tournamentTop");
+  $(`ovTeam${team}BowlContent`).innerHTML =
+    state.bowlers[team].map(b=>
+      `<p>${escapeHTML(b.name)} — ${b.overs} overs, ${b.runs} runs, ${b.wickets} wickets, Econ ${b.economy}</p>`
+    ).join("") || "No bowling figures entered";
+}
 
-  setPosition("teamABox", "top", "teamTop");
-  setPosition("teamBBox", "top", "teamTop");
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
 
-  setPosition("vsText", "top", "vsTop");
-  setPosition("tossText", "bottom", "tossBottom");
+function battingTable(team) {
+  const current = Number($("inningsInput").value) === team;
+  const rows = current
+    ? [
+        {name:$("strikerInput").value+" *",...state.striker},
+        {name:$("nonStrikerInput").value,...state.nonStriker}
+      ]
+    : state.batters[team];
 
-  setPosition("teamABox", "left", "teamALeft");
-  setPosition("teamBBox", "right", "teamBRight");
+  const tbody = $(`team${team}BattingTable`);
+  tbody.innerHTML = "";
 
-  setPosition("vsText", "left", "vsLeft");
-  setPosition("tossText", "left", "tossLeft");
+  rows.forEach(b=>{
+    const sr = b.balls ? (b.runs*100/b.balls).toFixed(2) : "0.00";
+    const tr = document.createElement("tr");
+    [b.name,b.runs,b.balls,b.fours,b.sixes,sr].forEach(v=>{
+      const td = document.createElement("td");
+      td.textContent = v;
+      tr.append(td);
+    });
+    tbody.append(tr);
+  });
+
+  $(`ovTeam${team}BatContent`).innerHTML =
+    rows.map(b=>`<p>${escapeHTML(b.name)}: ${b.runs} (${b.balls} balls), 4s ${b.fours}, 6s ${b.sixes}</p>`).join("") ||
+    "No batting figures";
+}
+
+function updateAll() {
+  const team = currentTeam();
+  const target = Math.max(0,Number($("targetInput").value)||0);
+  const maxOvers = Math.max(1,Number($("maxOvers").value)||10);
+  const strikerName = $("strikerInput").value || "Batsman 1";
+  const nonName = $("nonStrikerInput").value || "Batsman 2";
+  const bowlerName = $("bowlerInput").value || "Bowler 1";
+  const tournament = $("tournamentInput").value || "TOURNAMENT";
+
+  $("liveHeading").textContent =
+    `${teamName(team)} — ${state.runs}/${state.wickets}`;
+  $("liveOvers").textContent = oversText(state.balls);
+  $("liveRR").textContent = rate(state.runs,state.balls);
+  $("liveExtras").textContent = state.extras;
+
+  $("strikerName").textContent = strikerName+" *";
+  $("strikerRuns").textContent = state.striker.runs;
+  $("strikerBalls").textContent = state.striker.balls;
+  $("strikerFours").textContent = state.striker.fours;
+  $("strikerSixes").textContent = state.striker.sixes;
+  $("strikerSR").textContent = rate(state.striker.runs*100,state.striker.balls);
+
+  $("nonStrikerName").textContent = nonName;
+  $("nonRuns").textContent = state.nonStriker.runs;
+  $("nonBalls").textContent = state.nonStriker.balls;
+  $("nonFours").textContent = state.nonStriker.fours;
+  $("nonSixes").textContent = state.nonStriker.sixes;
+  $("nonSR").textContent = rate(state.nonStriker.runs*100,state.nonStriker.balls);
+
+  $("currentBowlerName").textContent = bowlerName;
+  $("bowlerOvers").textContent = oversText(state.balls);
+  $("bowlerRuns").textContent = state.bowlerRuns;
+  $("bowlerWickets").textContent = state.bowlerWickets;
+  $("bowlerEconomy").textContent = rate(state.bowlerRuns,state.balls);
+
+  $("partnershipRuns").textContent = state.partnershipRuns;
+  $("partnershipBalls").textContent = state.partnershipBalls;
+
+  const remainingBalls = Math.max(0,maxOvers*6-state.balls);
+  if (team===2 && target>0) {
+    const need = Math.max(0,target-state.runs);
+    $("toWin").textContent =
+      `${need} runs needed from ${remainingBalls} balls. Required RR: ${remainingBalls ? (need*6/remainingBalls).toFixed(2) : "—"}`;
+    $("ovToWinContent").textContent = $("toWin").textContent;
+  } else {
+    $("toWin").textContent = "Enter target and select Team 2 Batting.";
+    $("ovToWinContent").textContent = $("toWin").textContent;
+  }
+
+  $("wicketsTable").innerHTML = state.wicketsList.map(w=>
+    `<tr><td>${w.wicket}</td><td>${w.score}</td><td>${w.over}</td><td>${w.runs}</td></tr>`
+  ).join("");
+
+  $("ovTournament").textContent = tournament;
+  $("ovTeam1").textContent = teamName(1);
+  $("ovTeam2").textContent = teamName(2);
+  $("ovScore").textContent = `${state.runs}/${state.wickets}`;
+  $("ovOvers").textContent = `Overs ${oversText(state.balls)}`;
+  $("ovRR").textContent = `RR ${rate(state.runs,state.balls)}`;
+  $("ovBatters").textContent =
+    `${strikerName}: ${state.striker.runs}* | ${nonName}: ${state.nonStriker.runs}`;
+  $("ovBowler").textContent =
+    `${bowlerName}: ${oversText(state.balls)} overs, ${state.bowlerRuns} runs, ${state.bowlerWickets} wickets`;
+
+  setLogo("ovLogo1",state.logos[1]);
+  setLogo("ovLogo2",state.logos[2]);
+  setLogo("ovWelcomeLogo1",state.logos[1]);
+  setLogo("ovWelcomeLogo2",state.logos[2]);
+
+  $("ovWelcomeHeading").textContent =
+    $("welcomeHeading").value || "WELCOME TO THE MATCH";
+  $("ovWelcomeTeam1").textContent = teamName(1);
+  $("ovWelcomeTeam2").textContent = teamName(2);
+
+  $("ovMatchInfo").textContent =
+    `${$("matchType").value} | ${$("venueInput").value || "Venue not entered"}`;
 
   const winner = $("tossWinner").value;
   const decision = $("tossDecision").value;
+  $("ovToss").textContent = winner && decision
+    ? `${teamName(Number(winner))} won the toss and chose to ${decision}.`
+    : "Toss details not entered";
 
-  if (winner && decision) {
-    const winnerName = winner === "A" ? teamAName : teamBName;
+  $("ovPlayersInfo").textContent =
+    `${teamName(1)}: ${state.players[1].map(p=>p.name).join(", ") || "No players added"} | ${teamName(2)}: ${state.players[2].map(p=>p.name).join(", ") || "No players added"}`;
 
-    const decisionText =
-      decision === "bat"
-        ? "elected to bat first"
-        : "elected to field first";
+  $("ovBatsman1Content").textContent =
+    `${strikerName}: ${state.striker.runs} runs, ${state.striker.balls} balls, ${state.striker.fours} fours, ${state.striker.sixes} sixes, SR ${rate(state.striker.runs*100,state.striker.balls)}`;
 
-    $("tossText").textContent =
-      winnerName + " won the toss and " + decisionText;
+  $("ovBatsman2Content").textContent =
+    `${nonName}: ${state.nonStriker.runs} runs, ${state.nonStriker.balls} balls, ${state.nonStriker.fours} fours, ${state.nonStriker.sixes} sixes, SR ${rate(state.nonStriker.runs*100,state.nonStriker.balls)}`;
+
+  $("ovPartnershipContent").textContent =
+    `${state.partnershipRuns} runs from ${state.partnershipBalls} balls`;
+
+  $("ovBowlerStatsContent").textContent =
+    `${bowlerName}: ${oversText(state.balls)} overs, ${state.bowlerRuns} runs, ${state.bowlerWickets} wickets, economy ${rate(state.bowlerRuns,state.balls)}`;
+
+  $("ovWicketsContent").textContent = state.wicketsList.length
+    ? state.wicketsList.map(w=>`Wicket ${w.wicket}: ${w.score} at over ${w.over}`).join(" | ")
+    : "No wickets yet";
+
+  $("ovSummaryContent").textContent =
+    `${teamName(team)} scored ${state.runs}/${state.wickets} in ${oversText(state.balls)} overs.`;
+
+  $("matchSummary").textContent =
+    `${teamName(team)} scored ${state.runs}/${state.wickets} in ${oversText(state.balls)} overs.`;
+
+  $("ovOfficialsContent").textContent =
+    `Umpires: ${$("umpire1").value || "—"}, ${$("umpire2").value || "—"} | Referee: ${$("referee").value || "—"}`;
+
+  $("ovCommentatorsContent").textContent =
+    `${$("commentator1").value || "—"} | ${$("commentator2").value || "—"}`;
+
+  battingTable(1);
+  battingTable(2);
+
+  $("scoreNotice").textContent = "Score updated.";
+}
+
+function setLogo(id,src) {
+  const img = $(id);
+  if (src) {
+    img.src = src;
+    img.hidden = false;
   } else {
-    $("tossText").textContent = "TOSS DETAILS";
+    img.removeAttribute("src");
+    img.hidden = true;
   }
-
-  loadLogo("teamAFile", "teamALogo");
-  loadLogo("teamBFile", "teamBLogo");
-
-  $("status").textContent = "Overlay updated successfully.";
 }
 
-function resetPositions() {
-  const defaults = {
-    tournamentTop: 8,
-    teamTop: 29,
-    vsTop: 39,
-    tossBottom: 9,
-    teamALeft: 4,
-    teamBRight: 4,
-    vsLeft: 43,
-    tossLeft: 5
-  };
-
-  for (const [id, value] of Object.entries(defaults)) {
-    $(id).value = value;
+function showSponsor() {
+  $("ovSponsorName").textContent = $("sponsorName").value || "SPONSOR";
+  const file = $("sponsorLogo").files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e=>{
+      $("ovSponsorLogo").src = e.target.result;
+      $("ovSponsorLogo").hidden = false;
+      showOverlay("sponsor");
+    };
+    reader.readAsDataURL(file);
+  } else {
+    showOverlay("sponsor");
   }
-
-  updateOverlay();
 }
 
-$("teamAFile").addEventListener("change", () => {
-  loadLogo("teamAFile", "teamALogo");
-});
+function setupOverlaySelect() {
+  const select = $("overlaySelect");
+  select.innerHTML = "";
+  Object.entries(overlayNames).forEach(([id,name])=>{
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = name;
+    select.append(option);
+  });
+  select.addEventListener("change",loadOverlaySettings);
+  loadOverlaySettings();
+}
 
-$("teamBFile").addEventListener("change", () => {
-  loadLogo("teamBFile", "teamBLogo");
-});
+function overlayElement(id) {
+  return $(`ov-${id}`);
+}
 
-/* Live preview while adjusting size and position */
+function showOverlay(id) {
+  const el = overlayElement(id);
+  if (!el) return;
+  el.classList.remove("hide");
+  state.overlayVisible[id] = true;
+}
+
+function hideOverlay(id) {
+  const el = overlayElement(id);
+  if (!el) return;
+  el.classList.add("hide");
+  state.overlayVisible[id] = false;
+}
+
+function showSelectedOverlay() {
+  showOverlay($("overlaySelect").value);
+}
+function hideSelectedOverlay() {
+  hideOverlay($("overlaySelect").value);
+}
+function showAllOverlays() {
+  Object.keys(overlayNames).forEach(showOverlay);
+}
+function hideAllOverlays() {
+  Object.keys(overlayNames).forEach(hideOverlay);
+}
+
+function loadOverlaySettings() {
+  const id = $("overlaySelect").value;
+  const el = overlayElement(id);
+  if (!el) return;
+
+  const stage = $("overlayStage");
+  $("overlayX").value = parseFloat(el.style.left) || 0;
+  $("overlayY").value = parseFloat(el.style.top) || 0;
+  $("overlayW").value = el.style.width
+    ? parseFloat(el.style.width)
+    : 100;
+  $("overlayH").value = el.style.height
+    ? parseFloat(el.style.height)
+    : (id==="main" ? 200 : 140);
+
+  $("overlayFont").value =
+    parseFloat(el.style.fontSize) || 24;
+
+  $("overlayColor").value = "#ffffff";
+  $("overlayBG").value = "#071426";
+  $("overlayBorder").value = "#b6ff00";
+}
+
+function applyOverlaySettings() {
+  const id = $("overlaySelect").value;
+  const el = overlayElement(id);
+  if (!el) return;
+
+  const x = clamp(Number($("overlayX").value),0,100);
+  const y = clamp(Number($("overlayY").value),0,100);
+  const w = clamp(Number($("overlayW").value),5,100);
+  const h = clamp(Number($("overlayH").value),50,1000);
+  const font = clamp(Number($("overlayFont").value),8,100);
+
+  el.style.left = x + "%";
+  el.style.top = y + "%";
+  el.style.width = w + "%";
+  el.style.height = h + "px";
+  el.style.fontSize = font + "px";
+  el.style.color = $("overlayColor").value;
+  el.style.background = $("overlayBG").value;
+  el.style.borderLeftColor = $("overlayBorder").value;
+
+  if (id==="main") {
+    el.style.height = "200px";
+    el.style.minHeight = "200px";
+  }
+}
+
+function clamp(value,min,max) {
+  return Math.max(min,Math.min(max,Number.isFinite(value)?value:min));
+}
+
 [
-  "tournamentInput", "subtitleInput",
-  "teamAInput", "teamBInput",
-  "tournamentColor", "teamAColor", "teamBColor",
-  "tournamentSize", "teamSize", "vsSize", "tossSize",
-  "tournamentTop", "teamTop", "vsTop", "tossBottom",
-  "teamALeft", "teamBRight", "vsLeft", "tossLeft",
-  "tossWinner", "tossDecision"
-].forEach(id => {
-  $(id).addEventListener("input", updateOverlay);
-  $(id).addEventListener("change", updateOverlay);
+  "tournamentInput","team1Input","team2Input","inningsInput",
+  "maxOvers","targetInput","strikerInput","nonStrikerInput",
+  "bowlerInput","matchStatusInput","welcomeHeading","venueInput",
+  "matchType","tossWinner","tossDecision","umpire1","umpire2",
+  "referee","commentator1","commentator2"
+].forEach(id=>{
+  $(id).addEventListener("input",updateAll);
+  $(id).addEventListener("change",updateAll);
 });
 
-updateOverlay();
+setupOverlaySelect();
+updateAll();
 </script>
 
 </body>
