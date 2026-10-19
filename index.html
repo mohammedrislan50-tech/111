@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cricket Score Pro</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #101827;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.overlay {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.design {
+  width: 100%;
+  display: block;
+}
+
+.text {
+  position: absolute;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.team1 {
+  top: 40%;
+  left: 12%;
+  font-size: clamp(14px, 3vw, 28px);
+}
+
+.score {
+  top: 40%;
+  left: 40%;
+  font-size: clamp(18px, 4vw, 36px);
+}
+
+.team2 {
+  top: 40%;
+  right: 12%;
+  font-size: clamp(14px, 3vw, 28px);
+}
+
+.overs {
+  top: 65%;
+  left: 40%;
+  font-size: clamp(12px, 2vw, 20px);
+}
+
+.controls {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #1d293b;
+  border-radius: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border: 0;
+  border-radius: 6px;
+}
+
+button {
+  padding: 12px;
+  margin: 4px;
+  border: 0;
+  border-radius: 6px;
+  background: #b6ff00;
+  color: #101827;
+  font-weight: bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+  <img class="design" src="welcome.png" alt="Cricket overlay design">
+
+  <div class="text team1" id="team1">TEAM A</div>
+  <div class="text score" id="score">0/0</div>
+  <div class="text team2" id="team2">TEAM B</div>
+  <div class="text overs" id="overs">Overs: 0.0</div>
+</div>
+
+<div class="controls">
+  <h2>Cricket Score Pro</h2>
+
+  <input id="teamAInput" placeholder="Team A name" value="TEAM A">
+  <input id="teamBInput" placeholder="Team B name" value="TEAM B">
+
+  <button onclick="updateTeams()">Update Teams</button>
+
+  <h3>Update Score</h3>
+  <button onclick="addRuns(0)">Dot Ball</button>
+  <button onclick="addRuns(1)">+1 Run</button>
+  <button onclick="addRuns(2)">+2 Runs</button>
+  <button onclick="addRuns(3)">+3 Runs</button>
+  <button onclick="addRuns(4)">+4 Runs</button>
+  <button onclick="addRuns(6)">+6 Runs</button>
+  <button onclick="addWicket()">Wicket</button>
+  <button onclick="undoBall()">Undo</button>
+  <button onclick="resetScore()">Reset</button>
+</div>
+
+<script>
+let runs = 0;
+let wickets = 0;
+let balls = 0;
+let history = [];
+
+function updateDisplay() {
+  document.getElementById("score").textContent =
+    runs + "/" + wickets;
+
+  document.getElementById("overs").textContent =
+    "Overs: " + Math.floor(balls / 6) + "." + (balls % 6);
+}
+
+function updateTeams() {
+  document.getElementById("team1").textContent =
+    document.getElementById("teamAInput").value || "TEAM A";
+
+  document.getElementById("team2").textContent =
+    document.getElementById("teamBInput").value || "TEAM B";
+}
+
+function saveHistory() {
+  history.push({
+    runs: runs,
+    wickets: wickets,
+    balls: balls
+  });
+}
+
+function addRuns(value) {
+  saveHistory();
+  runs += value;
+  balls++;
+  updateDisplay();
+}
+
+function addWicket() {
+  if (wickets >= 10) return;
+
+  saveHistory();
+  wickets++;
+  balls++;
+  updateDisplay();
+}
+
+function undoBall() {
+  if (history.length === 0) return;
+
+  const previous = history.pop();
+  runs = previous.runs;
+  wickets = previous.wickets;
+  balls = previous.balls;
+  updateDisplay();
+}
+
+function resetScore() {
+  if (!confirm("Reset the match score?")) return;
+
+  runs = 0;
+  wickets = 0;
+  balls = 0;
+  history = [];
+  updateDisplay();
+}
+
+updateTeams();
+updateDisplay();
+</script>
+
+</body>
+</html>
