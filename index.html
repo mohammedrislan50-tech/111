@@ -1,28 +1,70 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cricket Score Pro</title>
+<div class="overlay">
+  <img class="design" src="welcome.png" alt="Tournament Welcome Design">
+
+  <div class="text tournament">
+    <span id="tournament">TOURNAMENT NAME</span>
+  </div>
+
+  <div class="text team-a">
+    <img id="logoA" src="" alt="Team A Logo">
+    <span id="teamA">TEAM A FULL NAME</span>
+  </div>
+
+  <div class="text vs">VS</div>
+
+  <div class="text team-b">
+    <img id="logoB" src="" alt="Team B Logo">
+    <span id="teamB">TEAM B FULL NAME</span>
+  </div>
+
+  <div class="text toss">
+    <span id="toss">TOSS DETAILS</span>
+  </div>
+</div>
+
+<div class="controls">
+  <h3>Welcome Screen Details</h3>
+
+  <label>Tournament Name</label>
+  <input id="tournamentInput" placeholder="Tournament name">
+
+  <label>Team A Full Name</label>
+  <input id="teamAInput" placeholder="Team A name">
+
+  <label>Team A Logo</label>
+  <input id="logoAInput" type="file" accept="image/*">
+
+  <label>Team B Full Name</label>
+  <input id="teamBInput" placeholder="Team B name">
+
+  <label>Team B Logo</label>
+  <input id="logoBInput" type="file" accept="image/*">
+
+  <label>Toss Winner</label>
+  <select id="tossWinner">
+    <option value="">Select toss winner</option>
+    <option value="teamA">Team A</option>
+    <option value="teamB">Team B</option>
+  </select>
+
+  <label>Toss Decision</label>
+  <select id="tossDecision">
+    <option value="">Select decision</option>
+    <option value="elected to bat first">Bat First</option>
+    <option value="elected to field first">Field First</option>
+  </select>
+
+  <button onclick="updateWelcome()">UPDATE WELCOME SCREEN</button>
+</div>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #101827;
-  font-family: Arial, sans-serif;
-  color: white;
-}
-
 .overlay {
   position: relative;
   width: 100%;
   max-width: 1000px;
   margin: 20px auto;
+  overflow: hidden;
 }
 
 .design {
@@ -32,164 +74,130 @@ body {
 
 .text {
   position: absolute;
-  font-weight: bold;
   color: white;
-  text-shadow: 2px 2px 4px #000;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
 }
 
-.team1 {
-  top: 40%;
-  left: 12%;
-  font-size: clamp(14px, 3vw, 28px);
+.tournament {
+  top: 8%;
+  left: 10%;
+  width: 80%;
+  font-size: clamp(16px, 3vw, 32px);
 }
 
-.score {
+.team-a {
+  top: 30%;
+  left: 5%;
+  width: 35%;
+  font-size: clamp(12px, 2.5vw, 24px);
+}
+
+.team-b {
+  top: 30%;
+  right: 5%;
+  width: 35%;
+  font-size: clamp(12px, 2.5vw, 24px);
+}
+
+.team-a img,
+.team-b img {
+  display: block;
+  width: clamp(35px, 8vw, 90px);
+  height: clamp(35px, 8vw, 90px);
+  object-fit: contain;
+  margin: 0 auto 8px;
+}
+
+.vs {
   top: 40%;
-  left: 40%;
+  left: 43%;
+  width: 14%;
   font-size: clamp(18px, 4vw, 36px);
 }
 
-.team2 {
-  top: 40%;
-  right: 12%;
-  font-size: clamp(14px, 3vw, 28px);
-}
-
-.overs {
-  top: 65%;
-  left: 40%;
-  font-size: clamp(12px, 2vw, 20px);
+.toss {
+  bottom: 10%;
+  left: 5%;
+  width: 90%;
+  font-size: clamp(12px, 2.5vw, 24px);
 }
 
 .controls {
   max-width: 500px;
   margin: 20px auto;
-  padding: 15px;
+  padding: 16px;
   background: #1d293b;
+  color: white;
   border-radius: 12px;
 }
 
-input {
+.controls input,
+.controls select {
+  display: block;
   width: 100%;
-  padding: 12px;
-  margin: 6px 0;
-  border: 0;
-  border-radius: 6px;
+  padding: 10px;
+  margin: 6px 0 14px;
+  box-sizing: border-box;
 }
 
-button {
-  padding: 12px;
-  margin: 4px;
-  border: 0;
-  border-radius: 6px;
+.controls button {
+  width: 100%;
+  padding: 14px;
   background: #b6ff00;
-  color: #101827;
+  border: none;
   font-weight: bold;
 }
-
 </style>
-</head>
-
-<body>
-
-<div class="overlay">
-  <img class="design" src="welcome.png" alt="Cricket overlay design">
-
-  <div class="text team1" id="team1">TEAM A</div>
-  <div class="text score" id="score">0/0</div>
-  <div class="text team2" id="team2">TEAM B</div>
-  <div class="text overs" id="overs">Overs: 0.0</div>
-</div>
-
-<div class="controls">
-  <h2>Cricket Score Pro</h2>
-
-  <input id="teamAInput" placeholder="Team A name" value="TEAM A">
-  <input id="teamBInput" placeholder="Team B name" value="TEAM B">
-
-  <button onclick="updateTeams()">Update Teams</button>
-
-  <h3>Update Score</h3>
-  <button onclick="addRuns(0)">Dot Ball</button>
-  <button onclick="addRuns(1)">+1 Run</button>
-  <button onclick="addRuns(2)">+2 Runs</button>
-  <button onclick="addRuns(3)">+3 Runs</button>
-  <button onclick="addRuns(4)">+4 Runs</button>
-  <button onclick="addRuns(6)">+6 Runs</button>
-  <button onclick="addWicket()">Wicket</button>
-  <button onclick="undoBall()">Undo</button>
-  <button onclick="resetScore()">Reset</button>
-</div>
 
 <script>
-let runs = 0;
-let wickets = 0;
-let balls = 0;
-let history = [];
+let teamAName = "TEAM A";
+let teamBName = "TEAM B";
 
-function updateDisplay() {
-  document.getElementById("score").textContent =
-    runs + "/" + wickets;
+function loadLogo(inputId, imageId) {
+  const file = document.getElementById(inputId).files[0];
 
-  document.getElementById("overs").textContent =
-    "Overs: " + Math.floor(balls / 6) + "." + (balls % 6);
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      document.getElementById(imageId).src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
 }
 
-function updateTeams() {
-  document.getElementById("team1").textContent =
-    document.getElementById("teamAInput").value || "TEAM A";
+function updateWelcome() {
+  const tournament =
+    document.getElementById("tournamentInput").value.trim();
 
-  document.getElementById("team2").textContent =
-    document.getElementById("teamBInput").value || "TEAM B";
+  teamAName =
+    document.getElementById("teamAInput").value.trim() || "TEAM A";
+
+  teamBName =
+    document.getElementById("teamBInput").value.trim() || "TEAM B";
+
+  document.getElementById("tournament").textContent =
+    tournament || "TOURNAMENT NAME";
+
+  document.getElementById("teamA").textContent = teamAName;
+  document.getElementById("teamB").textContent = teamBName;
+
+  loadLogo("logoAInput", "logoA");
+  loadLogo("logoBInput", "logoB");
+
+  const winner = document.getElementById("tossWinner").value;
+  const decision = document.getElementById("tossDecision").value;
+
+  let tossText = "TOSS DETAILS";
+
+  if (winner && decision) {
+    const winnerName = winner === "teamA" ? teamAName : teamBName;
+    tossText = winnerName + " won the toss and " + decision;
+  }
+
+  document.getElementById("toss").textContent = tossText;
 }
-
-function saveHistory() {
-  history.push({
-    runs: runs,
-    wickets: wickets,
-    balls: balls
-  });
-}
-
-function addRuns(value) {
-  saveHistory();
-  runs += value;
-  balls++;
-  updateDisplay();
-}
-
-function addWicket() {
-  if (wickets >= 10) return;
-
-  saveHistory();
-  wickets++;
-  balls++;
-  updateDisplay();
-}
-
-function undoBall() {
-  if (history.length === 0) return;
-
-  const previous = history.pop();
-  runs = previous.runs;
-  wickets = previous.wickets;
-  balls = previous.balls;
-  updateDisplay();
-}
-
-function resetScore() {
-  if (!confirm("Reset the match score?")) return;
-
-  runs = 0;
-  wickets = 0;
-  balls = 0;
-  history = [];
-  updateDisplay();
-}
-
-updateTeams();
-updateDisplay();
 </script>
-
-</body>
-</html>
